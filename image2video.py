@@ -50,7 +50,7 @@ def create_video_with_ffmpeg(image_path, audio_path, output_path="output_video.m
 def main():
     parser = argparse.ArgumentParser(description="Create a video from a static image and audio file using ffmpeg")
     parser.add_argument("image", help="Path to the image file")
-    parser.add_argument("audio", help="Path to the audio file")
+    parser.add_argument("audio", help="Path to the audio file (.mp3, .m4a, or other audio formats)")
     parser.add_argument("-o", "--output", default=None, help="Output video file path (default: same as image name with .mp4 extension in same directory)")
     
     args = parser.parse_args()
