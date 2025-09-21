@@ -17,6 +17,7 @@ def create_video_with_ffmpeg(image_path, audio_path, output_path="output_video.m
             '-loop', '1',  # Loop the image
             '-i', image_path,  # Input image
             '-i', audio_path,  # Input audio
+            '-vf', 'scale=ceil(iw/2)*2:ceil(ih/2)*2',  # Ensure dimensions are even
             '-c:v', 'libx264',  # Video codec
             '-tune', 'stillimage',  # Optimize for still image
             '-c:a', 'aac',  # Audio codec
@@ -50,7 +51,7 @@ def create_video_with_ffmpeg(image_path, audio_path, output_path="output_video.m
 def main():
     parser = argparse.ArgumentParser(description="Create a video from a static image and audio file using ffmpeg")
     parser.add_argument("image", help="Path to the image file")
-    parser.add_argument("audio", help="Path to the audio file (.mp3, .m4a, or other audio formats)")
+    parser.add_argument("audio", help="Path to the audio file (.mp3, .m4a, .mp4, or other audio formats)")
     parser.add_argument("-o", "--output", default=None, help="Output video file path (default: same as image name with .mp4 extension in same directory)")
     
     args = parser.parse_args()
@@ -69,6 +70,10 @@ def main():
     # If output not specified, use same name as image with .mp4 extension in same directory
     if args.output is None:
         output_path = image_path.parent / (image_path.stem + ".mp4")
+        # Check if output path would overwrite the audio file
+        if output_path == audio_path:
+            output_path = image_path.parent / (image_path.stem + "_output.mp4")
+            print(f"Note: Output would overwrite audio file, using '{output_path}' instead")
     else:
         output_path = Path(args.output)
     

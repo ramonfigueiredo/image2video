@@ -55,7 +55,7 @@ python image2video.py <image_path> <audio_path> -o <output_path>
 ### Command-line arguments:
 
 - `image` (required): Path to the image file (PNG, JPG, etc.)
-- `audio` (required): Path to the audio file (MP3, M4A, WAV, etc.)
+- `audio` (required): Path to the audio file (MP3, M4A, MP4, WAV, etc.)
 - `-o, --output` (optional): Path for the output video file (default: same directory and name as image with .mp4 extension)
 
 ## Examples
@@ -95,6 +95,7 @@ The script will:
 1. **FFmpeg not found**: Make sure FFmpeg is installed (see Installation section above)
 2. **File not found**: Verify that the image and audio file paths are correct
 3. **Permission denied**: Ensure you have write permissions in the output directory
+4. **Output file conflict**: If the audio file is an MP4 with the same name as the image, the script will automatically append "_output" to prevent overwriting the audio file
 
 ## Notes
 
@@ -103,5 +104,5 @@ The script will:
 - The video duration matches the audio duration exactly
 - Supported formats:
   - Images: PNG, JPG, JPEG, GIF, BMP, etc.
-  - Audio: MP3, M4A, WAV, OGG, AAC, FLAC, etc.
+  - Audio: MP3, M4A, MP4, WAV, OGG, AAC, FLAC, etc.
   - Output: MP4 (recommended), AVI, MOV, etc.
